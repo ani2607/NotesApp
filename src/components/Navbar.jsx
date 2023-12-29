@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 const Navbar = () => {
 
-    const [user,setUser] = useState(true);
+    const [user,setUser] = useState(false);
   return (
     <div className="mt-2 sticky z-10 mb-3" >
       
