@@ -1,16 +1,20 @@
 import { useState } from "react";
 import { BiShow } from "react-icons/bi";
-import {  signInWithEmailAndPassword   } from 'firebase/auth';
-import { auth } from "../config/firebase";
+import {  signInWithEmailAndPassword ,signInWithPopup  } from 'firebase/auth';
+import { auth,googleProvider } from "../config/firebase";
 import { Navigate } from "react-router-dom";
+import {userDetail} from  '../recoil/User.js'
+import { useRecoilState } from "recoil";
 
 const Login = () => {
   const [typeOfPassword, setTypeOfPassword] = useState("password");
   const [email,setEmail] = useState('');
-  const [password,setPassword] = useState('');
+  const [pin,setPin] = useState('');
   const [navigate,setNavigate] = useState(false)
+  const [User,setUser] = useRecoilState(userDetail);
 
-  const changeInputTypeOfPassword = () => {
+  const changeInputTypeOfPassword = (e) => {
+    e.preventDefault();
     if (typeOfPassword === "password") {
       setTypeOfPassword("text");
     } else {
@@ -22,10 +26,13 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const user = await signInWithEmailAndPassword(auth,email,password);
-      // console.log(user);
+      const res = await signInWithEmailAndPassword(auth,email,pin);
+      // console.log(res);
       // console.log(auth.currentUser.email)
-      if(user.uid !== undefined){
+      setUser(res);
+      
+      if(res.user.uid !== undefined){
+
         setNavigate(true);
       }
       else{
@@ -33,7 +40,7 @@ const Login = () => {
       }
       setNavigate(true);
       setEmail('');
-      setPassword('');
+      setPin('');
     } catch (error) {
       console.log(error);
       alert("please enter correct email and Password")
@@ -41,6 +48,29 @@ const Login = () => {
 
   }
   
+  async function signInWithGoogle(e){
+
+    e.preventDefault();
+
+    try {
+      const res = await signInWithPopup(auth,googleProvider);
+
+      setUser(res);
+      if(res.user.uid !== undefined){
+
+        setNavigate(true);
+      }
+      else{
+        alert("please enter correct email and password")
+      }
+      setNavigate(true);
+      setEmail('');
+      setPin('');
+
+    } catch (error) {
+      console.log("Error while login : ",error);
+    }
+  }
 
   if(navigate){
     return  <Navigate to={'/'}/>
@@ -57,7 +87,7 @@ const Login = () => {
           className="border border-b-white border-t-0 border-r-0 border-l-0  p-2 w-[350px]  outline-none "
           value={email}
           onChange={(e)=> setEmail(e.target.value)}
-          required
+          // required
         />
 
         <div className="password flex items-center border border-b-white border-t-0 border-r-0 border-l-0  p-2 w-[350px]  outline-none justify-between ">
@@ -65,9 +95,9 @@ const Login = () => {
             type={typeOfPassword}
             placeholder="Password..."
             className=" outline-none w-[330px] "
-            value={password}
-            onChange={(e)=> setPassword(e.target.value)}
-            required
+            value={pin}
+            onChange={(e)=> setPin(e.target.value)}
+            // required
           />
           <button className="ml-5" onClick={changeInputTypeOfPassword}>
             <BiShow />
@@ -81,7 +111,7 @@ const Login = () => {
       <h1 className="text-xl mt-5 text-center">OR</h1>
 
       <div className="signwithgoogle mt-5 text-center ml-14">
-        <button className="text-center   mr-16 border-teal-500 border  w-[350px] p-2 rounded-2xl font-serif hover:bg-teal-700 hover:border-teal-700 text-teal-500 hover:text-white ">SignIn With Google</button>
+        <button onClick={signInWithGoogle} className="text-center   mr-16 border-teal-500 border  w-[350px] p-2 rounded-2xl font-serif hover:bg-teal-700 hover:border-teal-700 text-teal-500 hover:text-white ">SignIn With Google</button>
       </div>
     </form>
   );

@@ -1,6 +1,9 @@
 import { useState } from "react"
 import NoNote from "../components/NoNote"
 import Note from "../components/Note"
+import {userDetail} from  '../recoil/User.js'
+import { useRecoilValue } from "recoil"
+import { auth } from "../config/firebase.js"
 
 // const arr = [ 
 //   {
@@ -39,6 +42,10 @@ import Note from "../components/Note"
 
 
 const Home = () => {
+
+  const User = useRecoilValue(userDetail);
+  // console.log( User);
+  console.log(auth?.currentUser?.email);
 
   const [data,setData] = useState([{
     id : 'fadfadfadsf',

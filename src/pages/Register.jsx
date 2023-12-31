@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { BiShow } from "react-icons/bi";
-import { auth } from "../config/firebase";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth,googleProvider } from "../config/firebase";
+import { createUserWithEmailAndPassword,signInWithPopup } from "firebase/auth";
 import { Navigate } from "react-router-dom";
+import { userDetail } from "../recoil/User";
+import { useRecoilState } from "recoil";
+
 
 const Register = () => {
 
@@ -10,6 +13,8 @@ const Register = () => {
   const [email,setEmail] = useState('');
   const [password,setPassword] = useState('');
   const [navigate,setNavigate] = useState(false);
+  const [User,setUser] = useRecoilState(userDetail);
+
 
   
 
@@ -17,30 +22,31 @@ const Register = () => {
     e.preventDefault();
 
     try {
+      const res = await createUserWithEmailAndPassword(auth,email,password);
+      // console.log(res);
+      // console.log(auth.currentUser.email)
+      setUser(res);
       
-     const newUser =  await createUserWithEmailAndPassword(auth,email,password)
-      console.log(newUser)
-     if(newUser.uid !== undefined){
-      setNavigate(true);
-     }
-     else {
-      alert('Please Enter email and Password')
-     }
-     setPassword('');
-    setEmail('');
-    //  console.log(newUser);
-    } catch (error) {
+      if(res.user.uid !== undefined){
 
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.log(errorCode,errorMessage);
-      alert('All fields are mandatory')
+        setNavigate(true);
+      }
+      else{
+        alert("please enter correct email and password")
+      }
+      setNavigate(true);
+      setEmail('');
+      setPassword('');
+    } catch (error) {
+      console.log(error);
+      alert("please enter correct email and Password")
     }
 
     
   }
 
-  const changeInputTypeOfPassword = () => {
+  const changeInputTypeOfPassword = (e) => {
+    e.preventDefault();
     if (typeOfPassword === "password") {
       setTypeOfPassword("text");
     } else {
@@ -48,9 +54,39 @@ const Register = () => {
     }
   };
 
+  async function signInWithGoogle(e){
+
+    e.preventDefault();
+
+    try {
+        const res = await signInWithPopup(auth,googleProvider);
+        console.log(res);
+        setUser(res);
+
+        if(res.user.uid !== undefined){
+
+          setNavigate(true);
+        }
+        else{
+          alert("please enter correct email and password")
+        }
+        setNavigate(true);
+        setEmail('');
+        setPassword('');
+
+    } catch (error) {
+      console.log('error while signin : ',error)
+    }
+
+
+
+  }
+
   if(navigate){
     return <Navigate to={'/'}/>
   }
+
+ 
 
   return (
     <form className="h-[500px] w-[550px]  m-auto mb-10  backdrop-blur-xl   mt-10  border rounded-2xl border-teal-500/50 flex flex-col   text-white ">
@@ -80,14 +116,14 @@ const Register = () => {
         </button>
       </div>
       <button onClick={registerInNotesApp} className="text-center hover:bg-teal-700  mr-16 bg-teal-600 w-[350px] p-2 rounded-2xl font-serif ">
-        REGISTER
+        SIGN UP
       </button>
     </div>
 
     <h1 className="text-xl mt-5 text-center">OR</h1>
 
     <div className="signwithgoogle mt-5 text-center ml-14">
-      <button className="text-center   mr-16 border-teal-500 border  w-[350px] p-2 rounded-2xl font-serif hover:bg-teal-700 hover:border-teal-700 text-teal-500 hover:text-white ">SignUp With Google</button>
+      <button onClick={signInWithGoogle} className="text-center   mr-16 border-teal-500 border  w-[350px] p-2 rounded-2xl font-serif hover:bg-teal-700 hover:border-teal-700 text-teal-500 hover:text-white ">SignUp With Google</button>
     </div>
   </form>
   )
