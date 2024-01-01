@@ -44,8 +44,7 @@ import { auth } from "../config/firebase.js"
 const Home = () => {
 
   const User = useRecoilValue(userDetail);
-  // console.log( User);
-  console.log(auth?.currentUser?.email);
+
 
   const [data,setData] = useState([{
     id : 'fadfadfadsf',
@@ -53,6 +52,7 @@ const Home = () => {
     description : "Fdsajf asfsdf"
   }])
   // setData(arr);
+  console.log(User);
 
   return (
     <div className="text-center text-white text-xl">

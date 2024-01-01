@@ -4,14 +4,14 @@ import {  signInWithEmailAndPassword ,signInWithPopup  } from 'firebase/auth';
 import { auth,googleProvider } from "../config/firebase";
 import { Navigate } from "react-router-dom";
 import {userDetail} from  '../recoil/User.js'
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 
 const Login = () => {
   const [typeOfPassword, setTypeOfPassword] = useState("password");
   const [email,setEmail] = useState('');
   const [pin,setPin] = useState('');
   const [navigate,setNavigate] = useState(false)
-  const [User,setUser] = useRecoilState(userDetail);
+  const setUser = useSetRecoilState(userDetail);
 
   const changeInputTypeOfPassword = (e) => {
     e.preventDefault();
@@ -29,11 +29,11 @@ const Login = () => {
       const res = await signInWithEmailAndPassword(auth,email,pin);
       // console.log(res);
       // console.log(auth.currentUser.email)
-      setUser(res);
       
       if(res.user.uid !== undefined){
-
+        
         setNavigate(true);
+        setUser(auth.currentUser);
       }
       else{
         alert("please enter correct email and password")

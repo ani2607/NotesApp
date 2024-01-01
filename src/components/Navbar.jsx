@@ -15,16 +15,29 @@ const Navbar = () => {
     
     
     console.log(User);
-    const logout = () => {
-      
-      signOut(auth).then(()=>{
-        console.log("successfully signed out")
-        setNavigate(true);
-      }).catch((err)=>{
-          console.log("error at logout : ",err.message);
-      })
-    };
+    // const logout = async() => {
 
+    //   await signOut(auth);
+      
+      
+    //   signOut(auth).then(()=>{
+    //     console.log("successfully signed out")
+    //     setNavigate(true);
+    //   }).catch((err)=>{
+    //       console.log("error at logout : ",err.message);
+    //   })
+    // };
+    const logout = async () => {
+      try {
+        if (auth) {
+          await signOut(auth);
+        } else {
+          console.error("Auth object is null or undefined");
+        }
+      } catch (err) {
+        console.error(err);
+      }
+    };
 
     if(navigate){
 
