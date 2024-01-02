@@ -3,15 +3,14 @@ import { BiShow } from "react-icons/bi";
 import {  signInWithEmailAndPassword ,signInWithPopup  } from 'firebase/auth';
 import { auth,googleProvider } from "../config/firebase";
 import { Navigate } from "react-router-dom";
-import {userDetail} from  '../recoil/User.js'
-import { useSetRecoilState } from "recoil";
+
 
 const Login = () => {
   const [typeOfPassword, setTypeOfPassword] = useState("password");
   const [email,setEmail] = useState('');
   const [pin,setPin] = useState('');
   const [navigate,setNavigate] = useState(false)
-  const setUser = useSetRecoilState(userDetail);
+
 
   const changeInputTypeOfPassword = (e) => {
     e.preventDefault();
@@ -33,12 +32,11 @@ const Login = () => {
       if(res.user.uid !== undefined){
         
         setNavigate(true);
-        setUser(auth.currentUser);
+   
       }
       else{
         alert("please enter correct email and password")
       }
-      setNavigate(true);
       setEmail('');
       setPin('');
     } catch (error) {
@@ -55,15 +53,12 @@ const Login = () => {
     try {
       const res = await signInWithPopup(auth,googleProvider);
 
-      setUser(res);
       if(res.user.uid !== undefined){
-
         setNavigate(true);
       }
       else{
         alert("please enter correct email and password")
       }
-      setNavigate(true);
       setEmail('');
       setPin('');
 
@@ -87,7 +82,7 @@ const Login = () => {
           className="border border-b-white border-t-0 border-r-0 border-l-0  p-2 w-[350px]  outline-none "
           value={email}
           onChange={(e)=> setEmail(e.target.value)}
-          // required
+          required
         />
 
         <div className="password flex items-center border border-b-white border-t-0 border-r-0 border-l-0  p-2 w-[350px]  outline-none justify-between ">
@@ -97,7 +92,7 @@ const Login = () => {
             className=" outline-none w-[330px] "
             value={pin}
             onChange={(e)=> setPin(e.target.value)}
-            // required
+            required
           />
           <button className="ml-5" onClick={changeInputTypeOfPassword}>
             <BiShow />

@@ -1,32 +1,30 @@
 
-import { Link,Navigate } from "react-router-dom";
-import {userDetail} from '../recoil/User.js'
-import { useRecoilValue } from "recoil";
+import { Link } from "react-router-dom";
 import { auth } from "../config/firebase.js";
 import { signOut} from "firebase/auth";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 const Navbar = () => {
 
   
-    const User = useRecoilValue(userDetail);
-    const [navigate,setNavigate] = useState(false);
+    const [user,setUser] = useState();
     
-    
-    console.log(User);
-    // const logout = async() => {
 
-    //   await signOut(auth);
-      
-      
-    //   signOut(auth).then(()=>{
-    //     console.log("successfully signed out")
-    //     setNavigate(true);
-    //   }).catch((err)=>{
-    //       console.log("error at logout : ",err.message);
-    //   })
-    // };
+    useEffect(() => {
+      const unsubscribe = auth.onAuthStateChanged((authUser) => {
+        if (authUser) {
+          setUser(authUser);
+        } else {
+          setUser(null);
+        }
+      });
+  
+      return () => {
+        unsubscribe();
+      };
+    }, []);
+
     const logout = async () => {
       try {
         if (auth) {
@@ -39,16 +37,13 @@ const Navbar = () => {
       }
     };
 
-    if(navigate){
-
-      return <Navigate to={'/login'} replace />
-    }
+ 
 
   return (
     <div className="mt-2 sticky z-10 mb-3" >
       
       {
-        !User && (
+        !user && (
             <div className="flex justify-evenly items-center ">
                 <div className="logo text-4xl font-semibold text-white">
                     <Link to="/"><h1>Notes</h1></Link>
@@ -63,7 +58,7 @@ const Navbar = () => {
       }
 
 {
-        User && (
+        user && (
             <div className="flex justify-evenly items-center ">
                 <div className="logo text-4xl font-semibold text-white">
                 <Link to="/"><h1>Notes</h1></Link>

@@ -3,8 +3,7 @@ import { BiShow } from "react-icons/bi";
 import { auth,googleProvider } from "../config/firebase";
 import { createUserWithEmailAndPassword,signInWithPopup } from "firebase/auth";
 import { Navigate } from "react-router-dom";
-import { userDetail } from "../recoil/User";
-import { useSetRecoilState } from "recoil";
+
 
 
 const Register = () => {
@@ -13,7 +12,7 @@ const Register = () => {
   const [email,setEmail] = useState('');
   const [password,setPassword] = useState('');
   const [navigate,setNavigate] = useState(false);
-  const setUser = useSetRecoilState(userDetail);
+  const [user,setUser] = useState(null);
 
 
   
