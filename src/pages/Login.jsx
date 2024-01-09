@@ -72,7 +72,7 @@ const Login = () => {
   }
 
   return (
-    <form className="h-[500px] w-[550px]  m-auto mb-10  backdrop-blur-xl   mt-10  border rounded-2xl border-teal-500/50 flex flex-col   text-white ">
+    <form className="h-[500px]  w-[550px] wi  m-auto mb-10  backdrop-blur-xl   mt-10  border rounded-2xl border-teal-500/50 flex flex-col   text-white ">
       <h1 className="text-4xl mt-5 text-center">Welcome Back!</h1>
 
       <div className="input ml-24 flex flex-col gap-y-10  mt-16   ">
