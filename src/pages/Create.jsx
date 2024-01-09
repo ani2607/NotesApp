@@ -36,9 +36,9 @@ const Create = () => {
 
     <>
     <h1 className="text-center text-5xl   text-teal-500 mt-10">New Note</h1>
-    <form className="h-[410px] w-[550px]  m-auto mb-20 backdrop-blur-xl   mt-5   flex items-center flex-col text-white">
+    <form className=" w-[300px] h-[400px]    sm:h-[410px] sm:w-[550px]  m-auto mb-20  mt-5   flex items-center flex-col text-white">
       
-      <input type="text"className="mt-5 outline-none rounded  border border-teal-500/30  w-96 p-2" placeholder="Title..." value={title}
+      <input type="text"className="mt-5 outline-none rounded  border border-teal-500/30 w-64  sm:w-96 p-2" placeholder="Title..." value={title}
       onChange={(e)=> setTitle(e.target.value)} />
 
       <textarea placeholder="Body..."
@@ -46,7 +46,7 @@ const Create = () => {
        rows="12"
        value={des}
        onChange={(e)=> setDes(e.target.value)}
-       className="border w-96 mt-5 rounded border-teal-500/30 outline-none p-2"
+       className="border w-64  sm:w-96 mt-5 rounded border-teal-500/30 outline-none p-2"
        ></textarea>
 
        <div className="btn mt-3 mb-2 flex gap-x-10 ">
