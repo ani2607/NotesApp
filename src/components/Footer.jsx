@@ -26,7 +26,7 @@ const Footer = () => {
     </footer>
 
     {/* mobile view */}
-    <footer className="footer text-white text-center inset-x-0  sm:hidden fixed bottom-5 ">
+    <footer className="footer text-white text-center inset-x-0  sm:hidden fixed bottom-0 ">
     <div className="left text-xl text-center">
         <h1>Copyright &copy; <span className="text-teal-500">Aniket Sharma </span>2024</h1>
       </div>
