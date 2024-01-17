@@ -39,7 +39,7 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="mt-2 sticky z-10 mb-3">
+    <nav className="mt-2 sticky top-0 p-2 z-10 mb-3">
       {/* desktop view */}
       {!user && (
         <div className=" hidden sm:flex justify-evenly items-center ">
@@ -69,7 +69,7 @@ const Navbar = () => {
       {/* mobile view */}
       {!user && (
         <nav className=" z-30   m-auto sm:hidden  text-white   ">
-          <div className="flex gap-x-8   items-center justify-evenly flex-wrap ">
+          <div className="flex gap-x-10   items-center justify-evenly flex-wrap ">
             <div className="right p-2 ">
               <Link to={"/"}>
                 <h1 className="text-2xl  ">Notes</h1>
@@ -89,7 +89,7 @@ const Navbar = () => {
           
 
           {nav && (
-            <div className=" z-30 sticky  h-16 flex flex-col gap-y-3   items-center text-center   w-full    text-xl ">
+            <div className=" h-14 flex flex-col gap-y-3   items-center text-center   w-full    text-xl ">
            
               <Link onClick={toggleNav} to="/login" className="text-teal-500 " >
                 Login
@@ -136,7 +136,7 @@ const Navbar = () => {
       {/* mobile view */}
       {user && (
         <nav className=" z-30   m-auto sm:hidden  text-white   ">
-          <div className="flex gap-x-8   items-center justify-evenly flex-wrap ">
+          <div className="flex gap-x-10   items-center justify-evenly flex-wrap ">
             <div className="right p-2 ">
               <Link to={"/"}>
                 <h1 className="text-2xl  ">Notes</h1>
@@ -156,19 +156,20 @@ const Navbar = () => {
           
 
           {nav && (
-            <div className=" z-30 sticky  h-16 flex flex-col gap-y-3   items-center text-center   w-full  text-xl ">
+            <div className="   h-14 flex flex-col gap-y-3   items-center text-center   w-full  text-xl ">
            
               <Link onClick={toggleNav} to="/create" className="text-teal-500 " >
                 Create
               </Link>
-
+              <Link onClick={logout} to={"/login"}>
               <button
-                onClick={logout}
+                onClick={toggleNav}
                 
                 className="border-teal-500 border p-1 rounded hover:bg-teal-700 hover:border-teal-700 text-teal-500 hover:text-white"
               >
                 Logout
               </button>
+              </Link>
      
 
               

@@ -24,7 +24,7 @@ const Home = () => {
     return () => {
       unsubscribe();
     };
-  }, []);
+  }, [user]);
 
   useEffect(() => {
     if (user) {
@@ -42,7 +42,7 @@ const Home = () => {
           console.error("Error fetching notes:", error);
         });
     }
-  }, [user,data]); // Depend on the user state
+  }, [user]); // Depend on the user state
 
   if (navigate) {
     return <Navigate to="/login" />;

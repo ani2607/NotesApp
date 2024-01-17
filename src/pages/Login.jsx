@@ -65,14 +65,14 @@ const Login = () => {
   return (
     <>
     {/* desktop view and added mobile view using tailwind css  */}
-      <form className=" w-[350px] h-[450px]  sm:h-[500px] sm:w-[550px]  m-auto mb-10 backdrop-blur-xl mt-10  border rounded-2xl border-teal-500/50 flex flex-col text-white ">
+      <form className=" w-[350px] h-[450px]  sm:h-[500px] sm:w-[550px]  m-auto  backdrop-blur-xl mt-10  border rounded-2xl border-teal-500/50 flex flex-col text-white ">
         <h1 className="text-4xl mt-5 text-center">Welcome Back!</h1>
 
         <div className="input ml-6 sm:ml-24 flex flex-col gap-y-10  mt-16   ">
           <input
             type="email"
             placeholder="Email..."
-            className="border border-b-white border-t-0 border-r-0 border-l-0  p-2
+            className="border border-b-white border-t-0 border-r-0 border-l-0  sm:p-2 p-1
             w-[300px] sm:w-[350px]  outline-none "
             value={email}
             onChange={(e) => setEmail(e.target.value)}

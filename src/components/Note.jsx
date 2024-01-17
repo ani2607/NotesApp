@@ -13,6 +13,7 @@ const Note = ({title,id}) => {
         deleteDoc(notesRef)
             .then(() => {
                 // console.log("Document successfully deleted!");
+                alert("successfully deleted the note")
                
             })
             .catch(error => {
@@ -22,7 +23,7 @@ const Note = ({title,id}) => {
 };
 
   return (
-    <div className="w-80  p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div className="w-72  p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
     
         <h5 className="mb-2  text-2xl font-bold tracking-tight text-white">{title}</h5>
     

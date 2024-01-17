@@ -5,7 +5,7 @@ import { FaGithub,FaXTwitter,FaLinkedin,FaInstagram } from "react-icons/fa6";
 const Footer = () => {
   return (
     <>
-    <footer className="text-white hidden sm:fixed sm:inset-x-0 sm:bottom-5  sm:flex sm:justify-evenly  sm:mt-80 ">
+    <footer className="text-white hidden sm:fixed sm:inset-x-0 sm:bottom-0  sm:flex sm:justify-evenly sm:items-center  sm:mt-80 bg-[#091a35] h-10   ">
       <div className="left text-xl">
         <h1>Copyright &copy; <span className="text-teal-500">Aniket Sharma </span>2024</h1>
       </div>
