@@ -2,10 +2,14 @@ import PropTypes from 'prop-types';
 import { Link} from 'react-router-dom';
 import { auth,db } from '../config/firebase';
 import { doc,deleteDoc } from 'firebase/firestore';
+import {  useState } from 'react';
+import {Navigate} from 'react-router-dom'
 
 
 
 const Note = ({title,id}) => {
+
+    const [navigate,setNavigate] = useState(false);
 
   const handleDelete = () => {
     if (auth.currentUser) {
@@ -13,6 +17,7 @@ const Note = ({title,id}) => {
         deleteDoc(notesRef)
             .then(() => {
                 // console.log("Document successfully deleted!");
+                setNavigate(true);
                 alert("successfully deleted the note")
                
             })
@@ -21,6 +26,12 @@ const Note = ({title,id}) => {
             });
     }
 };
+
+
+
+    if(navigate){
+        return <Navigate to={'/'} />
+    }
 
   return (
     <div className="w-72  p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
