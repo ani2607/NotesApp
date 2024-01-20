@@ -4,12 +4,15 @@ import { auth,db } from '../config/firebase';
 import { doc,deleteDoc } from 'firebase/firestore';
 import {  useState } from 'react';
 import {Navigate} from 'react-router-dom'
+import { useRecoilState } from "recoil";
+import { notesdata } from "../recoil/notesdata.js";
 
 
 
 const Note = ({title,id}) => {
 
     const [navigate,setNavigate] = useState(false);
+    const [data,setData] =  useRecoilState(notesdata)
 
   const handleDelete = () => {
     if (auth.currentUser) {
@@ -17,8 +20,11 @@ const Note = ({title,id}) => {
         deleteDoc(notesRef)
             .then(() => {
                 // console.log("Document successfully deleted!");
-                setNavigate(true);
+                setData((prev)=>{
+                    return prev.filter((note)=> (note.id != id));
+                })
                 alert("successfully deleted the note")
+                setNavigate(true);
                
             })
             .catch(error => {

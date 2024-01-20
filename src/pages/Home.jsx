@@ -5,11 +5,13 @@ import Note from "../components/Note";
 import { auth, db } from "../config/firebase.js";
 import { getDocs, collection } from "firebase/firestore";
 import { Navigate } from "react-router-dom";
+import { useRecoilState } from "recoil";
+import { notesdata } from "../recoil/notesdata.js";
 
 const Home = () => {
   const [user, setUser] = useState(null);
   const [navigate, setNavigate] = useState(false);
-  const [data, setData] = useState([]);
+  const [data, setData] = useRecoilState(notesdata);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((authUser) => {
@@ -41,8 +43,10 @@ const Home = () => {
         .catch(error => {
           console.error("Error fetching notes:", error);
         });
+    }else{
+      setData([]);
     }
-  }, [user]); // Depend on the user state
+  }, [setData,user]); // Depend on the user state
 
  
 
