@@ -57,8 +57,12 @@ const Home = () => {
 
   // console.log(data?.length);
   return (
-    <div className="text-center flex flex-col justify-center items-center flex-wrap  sm:grid gap-3   sm:ml-8  md:ml-20  grid-cols-1 sm:grid-cols-2 sm:grid-rows-4 lg:grid-cols-3 lg:grid-rows-3 grid-rows-6   mt-10  text-white text-xl mb-16 ">
-      {data.length === 0 ? <NoNote /> : data.map((note) =>  (
+    <div className = {`${data.length == 0 ? 'text-white text-center' : 'text-center flex flex-col justify-center items-center flex-wrap  sm:grid gap-3   sm:ml-8  md:ml-20  grid-cols-1 sm:grid-cols-2 sm:grid-rows-4 lg:grid-cols-3 lg:grid-rows-3 grid-rows-6   mt-10  text-white text-xl mb-16'}`}  >
+      
+      {data.length === 0 ?  <NoNote />
+       : 
+       
+       data.map((note) =>  (
               
         <Note key={note.id} title={note.title} id={note.id} />
 

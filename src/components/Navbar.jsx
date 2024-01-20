@@ -89,7 +89,7 @@ const Navbar = () => {
           
 
           {nav && (
-            <div className=" h-14 flex flex-col gap-y-3   items-center text-center   w-full    text-xl ">
+            <div className=" h-14 flex flex-col gap-y-3   items-center text-center   w-full     text-xl ">
            
               <Link onClick={toggleNav} to="/login" className="text-teal-500 " >
                 Login
@@ -156,9 +156,9 @@ const Navbar = () => {
           
 
           {nav && (
-            <div className="   h-14 flex flex-col gap-y-3   items-center text-center   w-full  text-xl ">
+            <div className="   h-14 flex flex-col gap-y-3   items-center text-center    w-full  text-xl ">
            
-              <Link onClick={toggleNav} to="/create" className="text-teal-500 " >
+              <Link onClick={toggleNav} to="/create" className="text-teal-500  " >
                 Create
               </Link>
               <Link onClick={logout} to={"/login"}>
